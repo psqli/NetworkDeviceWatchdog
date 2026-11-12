@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <Version>0.1.0</Version>
+    <Product>Network Device Watchdog</Product>
+    <Copyright>The Network Device Watchdog authors</Copyright>
+    <RepositoryUrl>https://github.com/psqli/NetworkDeviceWatchdog</RepositoryUrl>
+  </PropertyGroup>
+</Project>

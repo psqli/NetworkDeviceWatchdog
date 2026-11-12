@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/NetworkDeviceWatchdog.Core/NetworkDeviceWatchdog.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NetworkDeviceWatchdog.Tests/NetworkDeviceWatchdog.Tests.csproj" />
+  </Folder>
+</Solution>
