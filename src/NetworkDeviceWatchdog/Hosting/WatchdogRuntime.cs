@@ -127,11 +127,11 @@ internal sealed class WatchdogRuntime : IDisposable
 internal sealed class ConfigWatcher : IDisposable
 {
     private readonly FileSystemWatcher _watcher;
-    private readonly Timer _debounce;
+    private readonly System.Threading.Timer _debounce;
 
     public ConfigWatcher(string configPath)
     {
-        _debounce = new Timer(_ => Changed?.Invoke(), null, Timeout.Infinite, Timeout.Infinite);
+        _debounce = new System.Threading.Timer(_ => Changed?.Invoke(), null, Timeout.Infinite, Timeout.Infinite);
         _watcher = new FileSystemWatcher(Path.GetDirectoryName(configPath)!, Path.GetFileName(configPath))
         {
             NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.Size,
