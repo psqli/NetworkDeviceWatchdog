@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/NetworkDeviceWatchdog.Core/NetworkDeviceWatchdog.Core.csproj" />
+    <None Include="../../samples/watchdog.json" Link="samples/watchdog.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

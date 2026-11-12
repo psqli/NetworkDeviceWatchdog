@@ -1,0 +1,64 @@
+// Network Device Watchdog configuration.
+// Comments and trailing commas are allowed. Unknown settings are rejected so that
+// typos are reported instead of silently ignored. Run with --validate to check this file.
+{
+  // "auto" follows the operating system language. Built in: en, pt, es, hi, zh, ar.
+  "language": "auto",
+
+  // Seconds between check rounds.
+  "intervalSeconds": 60,
+
+  // Failed checks in a row before alerting (3 = about 3 minutes with the interval above).
+  "failThreshold": 3,
+
+  // ESC/POS printers: rounds during which this computer keeps sending a job before
+  // it is reported as stuck.
+  "busyThreshold": 10,
+
+  "notifications": {
+    // Windows: tray notification for problems and recoveries.
+    "desktop": true,
+    // Windows: always-on-top alert window that stays until someone presses OK.
+    "alertWindow": true,
+    "alertFontSize": 18,
+    // Phone push via https://ntfy.sh: subscribe to a hard-to-guess topic in the app.
+    "ntfyUrl": null,
+    "notifyRecovery": true
+  },
+
+  "devices": [
+    {
+      // Thermal receipt printer (ELGIN i9, Epson TM, Bematech...) on raw TCP port 9100.
+      "name": "Cashier",
+      "type": "escpos-printer",
+      "host": "192.168.10.21",
+      // From the printer's self-test page; enables IP-conflict detection.
+      "mac": "00-11-22-33-44-55",
+      // Windows printer name, to also catch jobs stuck in the queue.
+      "windowsQueue": "ELGIN i9 Cashier"
+    },
+    {
+      "name": "Kitchen",
+      "type": "escpos-printer",
+      "host": "192.168.10.22"
+    },
+    {
+      // Office printer: state over IPP (paper out, jam, toner, door open...).
+      "name": "Office",
+      "type": "printer",
+      "host": "192.168.10.30"
+    },
+    {
+      // Any device: ping plus TCP ports and an optional HTTP health check.
+      "name": "Sensor gateway",
+      "type": "generic",
+      "host": "192.168.10.40",
+      "tcpPorts": [1883],
+      "http": {
+        "url": "http://192.168.10.40/health",
+        "expectStatus": 200,
+        "expectBodyContains": "ok"
+      }
+    }
+  ]
+}
