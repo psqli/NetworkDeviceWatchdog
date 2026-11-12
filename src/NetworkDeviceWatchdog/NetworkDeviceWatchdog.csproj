@@ -19,7 +19,6 @@
   <PropertyGroup Condition="'$(IsWindowsBuild)' == 'true'">
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
-    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <DefineConstants>$(DefineConstants);WINDOWS_UI</DefineConstants>
   </PropertyGroup>
 
