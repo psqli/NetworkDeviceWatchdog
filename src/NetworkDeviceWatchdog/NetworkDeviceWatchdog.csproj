@@ -1,12 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!--
+    Two builds of the same app:
+      net10.0-windows : tray application (no console window), alert windows, print queues.
+      net10.0         : console service for Linux/macOS (e.g. a Raspberry Pi on the same network).
+  -->
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net10.0;net10.0-windows</TargetFrameworks>
     <AssemblyName>NetworkDeviceWatchdog</AssemblyName>
     <RootNamespace>NetworkDeviceWatchdog.App</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <IsWindowsBuild>false</IsWindowsBuild>
+    <IsWindowsBuild Condition="'$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))' == 'windows'">true</IsWindowsBuild>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsWindowsBuild)' == 'true'">
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <DefineConstants>$(DefineConstants);WINDOWS_UI</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsWindowsBuild)' != 'true'">
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsWindowsBuild)' != 'true'">
+    <Compile Remove="Windows/**" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="../NetworkDeviceWatchdog.Core/NetworkDeviceWatchdog.Core.csproj" />
